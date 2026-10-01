@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Mathematics Website</title>
+
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+
+    <h1><%= salut %></h1>
+
+    <div id="content">
+        <h2>Teme</h2>
+        <% for (const date in alldata.teme) { %>
+            <p>
+                <%= date %>: <%= alldata.teme[date] %>
+            </p>
+        <% } %>
+
+        <h2>Atentie</h2>
+        <% for (const date in alldata.atentie) { %>
+            <p>
+                <%= date %>: <%= alldata.atentie[date] %>
+            </p>
+        <% } %>
+        <% let capitol = ""; %>
+        <% for (const item of alldata.data) { %>
+                <% if (item.capitol !== capitol) { %>
+                    <% capitol = item.capitol; %>
+                    <h2><%= item.capitol %>
+                        <% if (
+                            alldata.note_subcap[item.capitol] && 
+                            alldata.note_subcap[item.capitol]["@@@medie"] !== undefined &&
+                            alldata.note_subcap[item.capitol]["@@@medie"] !== 0
+                        ) { %>
+                            <small>
+                                (Medie:
+                                <%= Number.isInteger(alldata.note_subcap[item.capitol]["@@@medie"])
+                                    ? alldata.note_subcap[item.capitol]["@@@medie"]
+                                    : alldata.note_subcap[item.capitol]["@@@medie"].toFixed(1) %>)
+                            </small>
+                        <% } %>
+                    </h2>
+                <% } %>
+                <h3><%= item.subcapitol %> 
+                    <% if (alldata.note_subcap[item.capitol] && alldata.note_subcap[item.capitol][item.subcapitol] !== undefined) { %>
+                        - Nota: <%= alldata.note_subcap[item.capitol][item.subcapitol] %>
+                    <% } %>
+                </h3>
+                <% for (const date in item.note) { %>
+                    <p>
+                        <%= date %>: <%= item.note[date] %>
+                    </p>
+                <% } %>
+        <% } %>
+    </div>
+
+
+    <!-- CSV parsing library -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
+
+    <!-- Our JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
