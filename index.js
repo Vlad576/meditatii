@@ -2,7 +2,7 @@ const express = require("express");
 const loadData = require("./public/script.js");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // EJS setup
 app.set("view engine", "ejs");
@@ -94,5 +94,5 @@ app.get(["/"], async (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`Website running at http://localhost:${PORT}`);
+    console.log(`Website running on port ${PORT}`);
 });
